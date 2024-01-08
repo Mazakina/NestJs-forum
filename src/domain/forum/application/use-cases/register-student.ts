@@ -33,7 +33,7 @@ export class RegisterStudentUseCase {
     const studentWithSameEmail =
       await this.studentsRepository.findByEmail(email)
 
-    if (!studentWithSameEmail) {
+    if (studentWithSameEmail) {
       return left(new StudentAlreadyExistsError(email))
     }
 
