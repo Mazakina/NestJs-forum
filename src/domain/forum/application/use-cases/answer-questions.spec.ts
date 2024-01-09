@@ -1,11 +1,11 @@
 import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-repository'
-import { AnswerQuestionsUseCase } from './answer-questions'
+import { AnswerQuestionUseCase } from './answer-questions'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { InMemoryAnswerAttachmentsRepository } from 'test/repositories/in-memory-answer-attachments-repository'
 
 let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository
 let inMemoryAnswersRepository: InMemoryAnswersRepository
-let sut: AnswerQuestionsUseCase
+let sut: AnswerQuestionUseCase
 
 describe('Create Question', () => {
   beforeEach(() => {
@@ -15,7 +15,7 @@ describe('Create Question', () => {
       inMemoryAnswerAttachmentsRepository,
     )
 
-    sut = new AnswerQuestionsUseCase(inMemoryAnswersRepository)
+    sut = new AnswerQuestionUseCase(inMemoryAnswersRepository)
   })
   // sut =system under test
   it('should be able to create a new question', async () => {

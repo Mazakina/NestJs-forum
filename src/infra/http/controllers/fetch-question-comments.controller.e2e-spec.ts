@@ -5,33 +5,33 @@ import { JwtService } from '@nestjs/jwt'
 import { Test } from '@nestjs/testing'
 import { hash } from 'bcryptjs'
 import request from 'supertest'
-import { AnswerFactory } from 'test/factories/make-answer'
 import { QuestionFactory } from 'test/factories/make-question'
+import { QuestionCommentFactory } from 'test/factories/make-question-comment'
 import { StudentFactory } from 'test/factories/make-student'
 
-describe('Fetch question answers (E2E)', () => {
+describe('Fetch question comments (E2E)', () => {
   let app: INestApplication
   let jwt: JwtService
   let studentFactory: StudentFactory
   let questionFactory: QuestionFactory
-  let answerFactory: AnswerFactory
+  let questionCommentFactory: QuestionCommentFactory
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [AppModule, DatabaseModule],
-      providers: [StudentFactory, QuestionFactory],
+      providers: [StudentFactory, QuestionFactory, QuestionCommentFactory],
     }).compile()
 
     questionFactory = moduleRef.get(QuestionFactory)
     studentFactory = moduleRef.get(StudentFactory)
-    answerFactory = moduleRef.get(AnswerFactory)
+    questionCommentFactory = moduleRef.get(QuestionCommentFactory)
     app = moduleRef.createNestApplication()
     jwt = moduleRef.get(JwtService)
 
     await app.init()
   })
 
-  test('[GET] /questions/:questionId/answers', async () => {
+  test('[GET] /questions/:questionId/comments', async () => {
     const user = await studentFactory.makePrismaStudent({
       name: 'John Doe',
       email: 'Jhondoe@example.com',
@@ -45,28 +45,28 @@ describe('Fetch question answers (E2E)', () => {
     })
 
     await Promise.all([
-      answerFactory.makePrismaAnswer({
+      questionCommentFactory.makeQuestionCommentStudent({
         authorId: user.id,
         questionId: question.id,
-        content: 'Answer 01 content',
+        content: 'Comment 01',
       }),
-      answerFactory.makePrismaAnswer({
+      questionCommentFactory.makeQuestionCommentStudent({
         authorId: user.id,
         questionId: question.id,
-        content: 'Answer 02 content',
+        content: 'Comment 02',
       }),
     ])
 
     const response = await request(app.getHttpServer())
-      .get(`/questions/${question.id.toString()}/answers`)
+      .get(`/questions/${question.id.toString()}/comments`)
       .set('Authorization', `bearer ${accessToken}`)
       .send()
 
     expect(response.statusCode).toBe(200)
     expect(response.body).toEqual({
-      questions: expect.arrayContaining([
-        expect.objectContaining({ content: 'Answer 02' }),
-        expect.objectContaining({ content: 'Answer 01' }),
+      comments: expect.arrayContaining([
+        expect.objectContaining({ content: 'Comment 02' }),
+        expect.objectContaining({ content: 'Comment 01' }),
       ]),
     })
   })

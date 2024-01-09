@@ -10,7 +10,7 @@ export class InMemoryNotificationsRepository
     this.items.push(notification)
   }
 
-  async findByID(id: string): Promise<Notification | null> {
+  async findById(id: string): Promise<Notification | null> {
     const notification = this.items.find((item) => item.id.toString() === id)
 
     return notification ?? null

@@ -11,7 +11,7 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
     private questionAttachmentsRepository: QuestionAttachmentsRepository,
   ) {}
 
-  async findByID(id: string) {
+  async findById(id: string) {
     const question = this.items.find((item) => item.id.toString() === id)
 
     if (!question) {

@@ -9,7 +9,7 @@ import { CurrentUser } from '@/infra/auth/current-user-decorators'
 import { UserPayload } from '@/infra/auth/jwt.strategy'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 import { z } from 'zod'
-import { AnswerQuestionsUseCase } from '@/domain/forum/application/use-cases/answer-questions'
+import { AnswerQuestionUseCase } from '@/domain/forum/application/use-cases/answer-questions'
 
 const answerQuestionBodySchema = z.object({
   content: z.string(),
@@ -21,7 +21,7 @@ const bodyValidationPipe = new ZodValidationPipe(answerQuestionBodySchema)
 
 @Controller('/questions/:questionId/answers')
 export class AnswerQuestionController {
-  constructor(private answerQuestion: AnswerQuestionsUseCase) {}
+  constructor(private answerQuestion: AnswerQuestionUseCase) {}
 
   @Post()
   async handle(

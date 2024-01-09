@@ -11,25 +11,7 @@ export class PrismaQuestionCommentsRepository
 {
   constructor(private prisma: PrismaService) {}
 
-  async create(questionComment: QuestionComment): Promise<void> {
-    const data = PrismaQuestionCommentMapper.toPersistence(questionComment)
-
-    await this.prisma.comment.create({
-      data,
-    })
-  }
-
-  async delete(questionComment: QuestionComment): Promise<void> {
-    const data = PrismaQuestionCommentMapper.toPersistence(questionComment)
-
-    await this.prisma.comment.delete({
-      where: {
-        id: data.id,
-      },
-    })
-  }
-
-  async findByID(id: string): Promise<QuestionComment | null> {
+  async findById(id: string): Promise<QuestionComment | null> {
     const questionComment = await this.prisma.comment.findUnique({
       where: {
         id,
@@ -39,6 +21,7 @@ export class PrismaQuestionCommentsRepository
     if (!questionComment) {
       return null
     }
+
     return PrismaQuestionCommentMapper.toDomain(questionComment)
   }
 
@@ -46,7 +29,7 @@ export class PrismaQuestionCommentsRepository
     questionId: string,
     { page }: PaginationParams,
   ): Promise<QuestionComment[]> {
-    const questionComments = this.prisma.comment.findMany({
+    const questionComments = await this.prisma.comment.findMany({
       where: {
         questionId,
       },
@@ -57,6 +40,22 @@ export class PrismaQuestionCommentsRepository
       skip: (page - 1) * 20,
     })
 
-    return (await questionComments).map(PrismaQuestionCommentMapper.toDomain)
+    return questionComments.map(PrismaQuestionCommentMapper.toDomain)
+  }
+
+  async create(questionComment: QuestionComment): Promise<void> {
+    const data = PrismaQuestionCommentMapper.toPersistence(questionComment)
+
+    await this.prisma.comment.create({
+      data,
+    })
+  }
+
+  async delete(questionComment: QuestionComment): Promise<void> {
+    await this.prisma.comment.delete({
+      where: {
+        id: questionComment.id.toString(),
+      },
+    })
   }
 }

@@ -29,7 +29,7 @@ export class PrismaAnswerCommentsRepository
     })
   }
 
-  async findByID(id: string): Promise<AnswerComment | null> {
+  async findById(id: string): Promise<AnswerComment | null> {
     const answerComment = await this.prisma.comment.findUnique({
       where: {
         id,

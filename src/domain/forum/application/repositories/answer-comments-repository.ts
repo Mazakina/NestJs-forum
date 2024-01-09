@@ -3,7 +3,7 @@ import { AnswerComment } from '../../enterprise/entities/answer-comment'
 
 export abstract class AnswerCommentsRepository {
   abstract create(answerComment: AnswerComment): Promise<void>
-  abstract findByID(id: string): Promise<AnswerComment | null>
+  abstract findById(id: string): Promise<AnswerComment | null>
   abstract delete(answerComment: AnswerComment): Promise<void>
   abstract findManyByAnswerId(
     answerId: string,

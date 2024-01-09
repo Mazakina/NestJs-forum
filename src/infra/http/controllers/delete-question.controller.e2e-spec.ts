@@ -38,6 +38,7 @@ describe('Edit question (E2E)', () => {
     const question = await questionFactory.makePrismaQuestion({
       authorId: user.id,
     })
+    const questionId = question.id.toString()
 
     const response = await request(app.getHttpServer())
       .delete(`/questions/${question.id.toString()}`)
@@ -48,9 +49,10 @@ describe('Edit question (E2E)', () => {
 
     const questionOnDatabase = await prisma.question.findUnique({
       where: {
-        id: question.id.toString(),
+        id: questionId,
       },
     })
+
     expect(questionOnDatabase).toBeFalsy()
   })
 })

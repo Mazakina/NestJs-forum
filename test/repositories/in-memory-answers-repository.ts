@@ -22,7 +22,7 @@ export class InMemoryAnswersRepository implements AnswersRepository {
     return answers
   }
 
-  async findByID(id: string): Promise<Answer | null> {
+  async findById(id: string): Promise<Answer | null> {
     const answer = this.items.find((item) => item.id.toString() === id)
 
     return answer ?? null

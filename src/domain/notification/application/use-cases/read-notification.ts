@@ -24,7 +24,7 @@ export class ReadNotificationUseCase {
     recipientId,
   }: ReadNotificationUseCaseRequest): Promise<ReadNotificationUseCaseResponse> {
     const notification =
-      await this.notificationsRepository.findByID(notificationId)
+      await this.notificationsRepository.findById(notificationId)
 
     if (!notification) {
       return left(new ResourceNotFoundError())

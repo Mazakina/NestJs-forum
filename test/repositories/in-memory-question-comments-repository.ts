@@ -11,7 +11,7 @@ export class InMemoryQuestionCommentsRepository
     this.items.push(questionComment)
   }
 
-  async findByID(id: string): Promise<QuestionComment | null> {
+  async findById(id: string): Promise<QuestionComment | null> {
     const questionComment = this.items.find((item) => item.id.toString() === id)
 
     return questionComment ?? null
