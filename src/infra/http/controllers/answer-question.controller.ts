@@ -13,6 +13,7 @@ import { AnswerQuestionUseCase } from '@/domain/forum/application/use-cases/answ
 
 const answerQuestionBodySchema = z.object({
   content: z.string(),
+  attachments: z.array(z.string().uuid()),
 })
 
 type AnswerQuestionBodySchema = z.infer<typeof answerQuestionBodySchema>
@@ -22,25 +23,22 @@ const bodyValidationPipe = new ZodValidationPipe(answerQuestionBodySchema)
 @Controller('/questions/:questionId/answers')
 export class AnswerQuestionController {
   constructor(private answerQuestion: AnswerQuestionUseCase) {}
-
   @Post()
   async handle(
     @Body(bodyValidationPipe) body: AnswerQuestionBodySchema,
     @CurrentUser() user: UserPayload,
     @Param('questionId') questionId: string,
   ) {
-    const { content } = body
-
+    const { content, attachments } = body
     const userId = user.sub
 
     const result = await this.answerQuestion.execute({
-      authorId: userId,
-      questionId,
       content,
-      attachmentsIds: [],
+      questionId,
+      authorId: userId,
+      attachmentsIds: attachments,
     })
 
-    console.log(result)
     if (result.isLeft()) {
       throw new BadRequestException()
     }

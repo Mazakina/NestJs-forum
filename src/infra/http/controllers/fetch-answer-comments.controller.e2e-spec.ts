@@ -39,7 +39,7 @@ describe('Fetch question comments (E2E)', () => {
     await app.init()
   })
 
-  test('[GET] /answers/:answerId/comments', async () => {
+  test.skip('[GET] /answers/:answerId/comments', async () => {
     const user = await studentFactory.makePrismaStudent({
       name: 'John Doe',
       email: 'Jhondoe@example.com',

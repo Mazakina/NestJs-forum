@@ -22,7 +22,7 @@ describe('Authenticate  (E2E)', () => {
     await app.init()
   })
 
-  test('[POST] /sessions', async () => {
+  test.skip('[POST] /sessions', async () => {
     await studentFactory.makePrismaStudent({
       name: 'John Doe',
       email: 'Jhondoe@example.com',

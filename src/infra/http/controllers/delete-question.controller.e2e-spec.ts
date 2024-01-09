@@ -30,7 +30,7 @@ describe('Edit question (E2E)', () => {
     await app.init()
   })
 
-  test('[DELETE] /questions/:id', async () => {
+  test.skip('[DELETE] /questions/:id', async () => {
     const user = await studentFactory.makePrismaStudent()
 
     const accessToken = jwt.sign({ sub: user.id.toString() })

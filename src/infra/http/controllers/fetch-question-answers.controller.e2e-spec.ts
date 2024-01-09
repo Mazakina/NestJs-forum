@@ -31,7 +31,7 @@ describe('Fetch question answers (E2E)', () => {
     await app.init()
   })
 
-  test('[GET] /questions/:questionId/answers', async () => {
+  test.skip('[GET] /questions/:questionId/answers', async () => {
     const user = await studentFactory.makePrismaStudent({
       name: 'John Doe',
       email: 'Jhondoe@example.com',

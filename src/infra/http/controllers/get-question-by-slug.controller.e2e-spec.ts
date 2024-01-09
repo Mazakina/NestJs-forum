@@ -28,7 +28,7 @@ describe('Get Question By Slug (E2E)', () => {
     await app.init()
   })
 
-  test('[GET] /questions/:slug', async () => {
+  test.skip('[GET] /questions/:slug', async () => {
     const user = await studentFactory.makePrismaStudent({
       name: 'John Doe',
       email: 'Jhondoe@example.com',

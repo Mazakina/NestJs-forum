@@ -38,10 +38,9 @@ export class AnswerQuestionUseCase {
     })
 
     answer.attachments = new AnswerAttachmentList(answerAttachments)
+
     await this.answersRepository.create(answer)
 
-    return right({
-      answer,
-    })
+    return right({ answer })
   }
 }

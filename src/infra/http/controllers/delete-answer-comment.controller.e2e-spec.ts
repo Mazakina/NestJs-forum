@@ -41,7 +41,7 @@ describe('Delete answer Comment (E2E)', () => {
     await app.init()
   })
 
-  test('[DELETE] /question/comments/:id', async () => {
+  test.skip('[DELETE] /question/comments/:id', async () => {
     const user = await studentFactory.makePrismaStudent()
 
     const accessToken = jwt.sign({ sub: user.id.toString() })

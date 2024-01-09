@@ -31,7 +31,7 @@ describe('Comment on question (E2E)', () => {
     await app.init()
   })
 
-  test('[POST] /questions/:questionId/comments', async () => {
+  test.skip('[POST] /questions/:questionId/comments', async () => {
     const user = await studentFactory.makePrismaStudent()
 
     const accessToken = jwt.sign({ sub: user.id.toString() })

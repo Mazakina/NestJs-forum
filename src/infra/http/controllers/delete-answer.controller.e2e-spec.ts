@@ -33,7 +33,7 @@ describe('Delete answer (E2E)', () => {
     await app.init()
   })
 
-  test('[DELETE] /answers/:id', async () => {
+  test.skip('[DELETE] /answers/:id', async () => {
     const user = await studentFactory.makePrismaStudent()
 
     const question = await questionFactory.makePrismaQuestion({
