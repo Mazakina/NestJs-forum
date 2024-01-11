@@ -11,7 +11,7 @@ export class InMemoryAnswersRepository implements AnswersRepository {
     private answerAttachmentsRepository: AnswerAttachmentsRepository,
   ) {}
 
-  async findManyByAnswerId(
+  async findManyByQuestionId(
     questionId: string,
     params: PaginationParams,
   ): Promise<Answer[]> {

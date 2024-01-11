@@ -29,7 +29,7 @@ describe('Fetch recent question (E2E)', () => {
     await app.init()
   })
 
-  test.skip('[GET] /questions', async () => {
+  test('[GET] /questions', async () => {
     const user = await studentFactory.makePrismaStudent({
       name: 'John Doe',
       email: 'Jhondoe@example.com',

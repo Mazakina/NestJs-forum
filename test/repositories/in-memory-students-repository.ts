@@ -5,8 +5,6 @@ import { Student } from '@/domain/forum/enterprise/entities/student'
 export class InMemoryStudentsRepository implements StudentsRepository {
   public items: Student[] = []
 
-  constructor() {}
-
   async findByEmail(email: string) {
     const student = this.items.find((item) => item.email === email)
 

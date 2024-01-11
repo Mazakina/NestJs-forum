@@ -7,8 +7,8 @@ import {
 } from '@nestjs/common'
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validation-pipe'
 import { z } from 'zod'
-import { CommentPresenter } from '../presenters/comment.presenter'
 import { FetchAnswerCommentsUseCase } from '@/domain/forum/application/use-cases/fetch-answer-comments'
+import { CommentWithAuthorPresenter } from '../presenters/comment-with-author.presenter'
 
 const pageQueryParamSchema = z
   .string()
@@ -37,7 +37,7 @@ export class FetchAnswerCommentsController {
     if (result.isLeft()) {
       throw new BadRequestException()
     }
-    const comments = result.value.answerComments
-    return { comments: comments.map(CommentPresenter.toHttp) }
+    const comments = result.value.comments
+    return { comments: comments.map(CommentWithAuthorPresenter.toHttp) }
   }
 }

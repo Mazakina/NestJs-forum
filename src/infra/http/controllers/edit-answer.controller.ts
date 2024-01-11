@@ -32,14 +32,14 @@ export class EditAnswerController {
     @CurrentUser() user: UserPayload,
     @Param('id') answerId: string,
   ) {
-    const { content } = body
+    const { content, attachments } = body
 
     const userId = user.sub
 
     const result = await this.editAnswer.execute({
       authorId: userId,
       content,
-      attachmentsIds: [],
+      attachmentsIds: attachments,
       answerId,
     })
 

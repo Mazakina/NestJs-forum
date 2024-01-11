@@ -8,12 +8,12 @@ function doSomething(shouldSuccess: boolean): Either<string, number> {
   }
 }
 
-test.skip('success result', () => {
+test('success result', () => {
   const successResult = doSomething(true)
   expect(successResult.isRight()).toBe(true)
 })
 
-test.skip('error result', () => {
+test('error result', () => {
   const successResult = doSomething(false)
 
   expect(successResult.isLeft()).toBe(true)
